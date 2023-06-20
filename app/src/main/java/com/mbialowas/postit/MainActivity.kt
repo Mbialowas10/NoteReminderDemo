@@ -6,10 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.mbialowas.postit.data.PostsDatasource
+import com.mbialowas.postit.model.Post
+
 import com.mbialowas.postit.screen.PostsScreen
 import com.mbialowas.postit.ui.theme.PostItTheme
 
@@ -32,6 +35,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(){
-    PostsScreen()
+    val posts= remember{
+        mutableStateListOf<Post>()
+    }
+    //PostsScreen(PostsDatasource().loadPosts())
+    PostsScreen(
+        posts = posts,
+        onPostAdd = {
+            posts.add(it)
+        },
+        onRemovePost = {
+            posts.remove(it)
+        })
 }
 

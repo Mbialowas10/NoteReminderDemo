@@ -2,7 +2,7 @@ package com.mbialowas.postit.data
 
 import com.mbialowas.postit.model.Post
 
-class PostsDS {
+class PostsDatasource {
     fun loadPosts(): List<Post>{
         return listOf(
             Post(title = "Kids", description = "Don't forgot to pickup kids from school" ),
