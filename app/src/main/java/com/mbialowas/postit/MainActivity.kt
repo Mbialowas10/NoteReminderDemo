@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mbialowas.postit.data.PostsDatasource
 import com.mbialowas.postit.model.Post
+import com.mbialowas.postit.screen.PostItViewModel
 
 import com.mbialowas.postit.screen.PostsScreen
 import com.mbialowas.postit.ui.theme.PostItTheme
@@ -26,11 +28,25 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    //MainScreen()
+                    PostItApp()
                 }
             }
         }
     }
+}
+@Composable
+fun PostItApp(postItViewModel: PostItViewModel = viewModel()){
+    var postList = postItViewModel.getAllPosts()
+
+    PostsScreen(
+        posts = postList,
+        onPostAdd = {
+            postItViewModel.addPost(it)
+        },
+        onRemovePost = {
+            postItViewModel.removePost(it)
+        })
 }
 
 @Composable
